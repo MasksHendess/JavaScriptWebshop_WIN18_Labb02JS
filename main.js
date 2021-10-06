@@ -1,13 +1,13 @@
-var product1 = {Name:"Deku Seeds", amount: 0 , color:"Blue", Size: "small", shipment:10, Price: 10, img: "DekuSeed.jpg"};
-var product2 = {Name:"Bombs", amount: 0 , color:"Blue", Size: "small", shipment:10, Price: 20, img: "Bomb.png"};
-var product3 = {Name:"Deku Shield", amount: 0 , color:"Brown", Size: "medium",shipment:50, Price: 40, img: "Deku_Shield.png"};
-var product4 = {Name:"Arrows", amount: 0 , color:"Metal", Size: "small",shipment:10, Price: 10, img: "Arrows.jpg"};
-var product5 = {Name:"Big Goron Sword", amount: 0 , color:"Metal", Size: "large",shipment:500, Price: 999, img: "B_BiggoronsSword.gif"};
-var product6 = {Name:"Hyrule Shield", amount: 0 , color:"Blue", Size: "medium",shipment:50, Price: 80, img: "HuryleShield.jpg"};
-var product7 = {Name:"Magic Potion", amount: 0 , color:"Green", Size: "small",shipment:10, Price: 30, img: "Green_Potion_(Majora's_Mask).png"};
-var product8 = {Name:"Healing Potion", amount: 0 , color:"Red", Size: "small",shipment:10, Price: 40, img: "Healing_Potion.jpg"};
-var product9 = {Name:"Hero Bow", amount: 0 , color:"Blue", Size: "medium",shipment:50, Price: 500, img: "HeroBow.png"};
-var product10 = {Name:"Hook Shoot", amount: 0 , color:"Blue",Size: "medium", shipment:50, Price: 800, img: "Scrubshoot.jpg"};
+var product1 = {id: 0, Name:"Deku Seeds", amount: 0 , color:"Blue", Size: "small", shipment:10, Price: 10, img: "DekuSeed.jpg"};
+var product2 = {id: 0,Name:"Bombs", amount: 0 , color:"Blue", Size: "small", shipment:10, Price: 20, img: "Bomb.png"};
+var product3 = {id: 0,Name:"Deku Shield", amount: 0 , color:"Brown", Size: "medium",shipment:50, Price: 40, img: "Deku_Shield.png"};
+var product4 = {id: 0,Name:"Arrows", amount: 0 , color:"Metal", Size: "small",shipment:10, Price: 10, img: "Arrows.jpg"};
+var product5 = {id: 0,Name:"Big Goron Sword", amount: 0 , color:"Metal", Size: "large",shipment:500, Price: 999, img: "B_BiggoronsSword.gif"};
+var product6 = {id: 0,Name:"Hyrule Shield", amount: 0 , color:"Blue", Size: "medium",shipment:50, Price: 80, img: "HuryleShield.jpg"};
+var product7 = {id: 0,Name:"Magic Potion", amount: 0 , color:"Green", Size: "small",shipment:10, Price: 30, img: "Green_Potion_(Majora's_Mask).png"};
+var product8 = {id: 0,Name:"Healing Potion", amount: 0 , color:"Red", Size: "small",shipment:10, Price: 40, img: "Healing_Potion.jpg"};
+var product9 = {id: 0,Name:"Hero Bow", amount: 0 , color:"Blue", Size: "medium",shipment:50, Price: 500, img: "HeroBow.png"};
+var product10 = {id: 0,Name:"Hook Shoot", amount: 0 , color:"Blue",Size: "medium", shipment:50, Price: 800, img: "Scrubshoot.jpg"};
 var products = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10];
 var SoldProducts = [];
 var cart;
@@ -45,13 +45,40 @@ document.getElementById("products").innerHTML= DisplayedText;
 function Buy(productname)
 {
     var SoldProduct;
+    var itemCount = 1;
+    var check = isNaN(localStorage.getItem("itemCounter"))==true;
+    console.log("Check: " +check)
+    if(isNaN(localStorage.getItem("itemCounter"))==true)
+    {
+        itemCount = 1;
+    }
+    else
+    {
+        itemCount = Number(localStorage.getItem("itemCounter")) + Number(1);
+        
+    }
 
+    // ensure unique ids
+    var Products = localStorage.getObj("SoldItems");
+    if(Products !=null)
+        {
+            Products.forEach(element => {
+                    if(element.id == itemCount)
+                    {
+                        itemCount = itemCount + Number(1);
+                    }
+            } );
+        }
 
     products.forEach(element => {
        if(element.Name == productname) 
        {
         SoldProduct = element;
+        
+        SoldProduct.id = itemCount;
+        itemCount = itemCount + Number(1);
         console.log("Buying " +SoldProduct.Name);
+        localStorage.setItem("itemCounter", itemCount);
        }
     });
     SoldProduct.color = prompt("Which Color do you want:");
@@ -138,10 +165,11 @@ function WriteProducts(storedNames)
         Text = Text + "<div class=\"col-xxl-1\">"+
         "<img src=\"images/products/"+element.img +"\" alt=\"product img\">"  +
         "<br>"+ element.Name +
+        "<br>item id: " + element.id +
                     "<br>Amount: " + element.amount + "<br>Color: " + element.color +
                       "<br>Size: "+ element.Size +"<br>Price: " +element.amount * element.Price +
                       "$ <br><button onclick=\"Changeamount('-', '"+element.Name+"','"+element.color+"')\">-</button><button onclick=\"Changeamount('+', '"+element.Name+"','"+element.color+"')\">+</button>"+
-                      "<button onclick=\"DeleteItem('"+element.Name+"')\">Delete Item</button> <br></div>";
+                      "<button onclick=\"DeleteItem('"+element.Name+"','"+ element.id +"')\">Delete Item</button> <br></div>";
     });
     
     document.getElementById("Products").innerHTML=Text;
@@ -163,14 +191,14 @@ function WriteProductsNoButton()
 }
 }
 
-function DeleteItem(ProductName)
+function DeleteItem(ProductName, ProductId)
 {
     
-    console.log(ProductName);
+    console.log(ProductName + " ---------- " +ProductId);
         var Products = localStorage.getObj("SoldItems");
-       
-        Products = Products.filter(function(returnableObjects){
-                return returnableObjects.Name != ProductName; // Mobba ut ProductName han suger!
+        
+      Products = Products.filter(function(returnableObjects){
+                return returnableObjects.id !=ProductId; // Filtrerar bort utifrån unikt Id istället för Namn.
         });
         
         localStorage.setObj("SoldItems", Products);
