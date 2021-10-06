@@ -3,22 +3,89 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <title>Hyrule Black Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
     <script src="main.js"></script>
 </head>
 
-<body onload="ObjectThing(), LoadProducts()">
+<body onload="ObjectThing()"><!-- , LoadProducts() -->
         <h1>Hyrule Black Market</h1>
         <p>Welcome!</p>
         <p>Take a look at our fine wares</p>
-        <div id="products">
 
+        <div class="row">
+            <div class="col-xl-2">
+                <h2>Deku Seeds</h2>
+                <img src="images/products/DekuSeed.JPG" alt="Deku Seeds">
+                <p>10 Rupees per item</p>
+                <button onclick="Buy('Deku Seeds')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Bombs</h2>
+                <img src="images/products/Bomb.png" alt="Bomb">
+                <p>20 Rupees per item</p>
+                <button onclick="Buy('Bombs')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Deku Shield</h2>
+                <img src="images/products/Deku_Shield.png" alt="Deku Shield">
+                <p>40 Rupees per item</p>
+                <button onclick="Buy('Deku Shield')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Arrows</h2>
+                <img src="images/products/Arrows.jpg" alt="Arrows">
+                <p>10 Rupees per item</p>
+                <button onclick="Buy('Arrows')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Big Goron Sword</h2>
+                <img src="images/products/B_BiggoronsSword.gif" alt="B_BiggoronsSword">
+                <p>999 Rupees per item</p>
+                <button onclick="Buy('Big Goron Sword')">Add to cart</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-2">
+                <h2>Hylian Shield</h2>
+                <img src="images/products/HuryleShield.jpg" alt="Hylian Shield">
+                <p>80 Rupees per item</p>
+                <button onclick="Buy('Hyrule Shield')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Magic Potion</h2>
+                <img src="images/products/Green_Potion_(Majora's_Mask).png" alt="Magic Potion">
+                <p>30 Rupees per item</p>
+                <button onclick="Buy('Magic Potion')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Healing Potion</h2>
+                <img src="images/products/Healing_Potion.jpg" alt="Healing Potion">
+                <p>40 Rupees per item</p>
+                <button onclick="Buy('Healing Potion')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Hero Bow</h2>
+                <img src="images/products/HeroBow.png" alt="Bow">
+                <p>500 Rupees per item</p>
+                <button onclick="Buy('Hero Bow')">Add to cart</button>
+            </div>
+            <div class="col-xl-2">
+                <h2>Hookshoot</h2>
+                <img src="images/products/Scrubshoot.jpg" alt="Hookshoot">
+                <p>999 Rupees per item</p>
+                <button onclick="Buy('Hook Shoot')">Add to cart</button>
+            </div>
+        </div>
+      <!--<div id="products">
+        </div> -->
+        <div>
+            <button onclick ="Checkout(2)">View Shoping Cart</button>
+            <button onclick ="PlayMusic()">Play Music</button>
         </div>
         <footer>
-        <button onclick ="Checkout(2)">View Shoping Cart</button>
-        <button onclick ="PlayMusic()">Play Music</button>
         </footer>
 </body>
 </html>
