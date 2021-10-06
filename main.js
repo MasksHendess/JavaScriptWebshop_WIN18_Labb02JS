@@ -1,13 +1,13 @@
-var product1 = {Name:"Deku Seeds", amount: 0 , color:"Blue", Size:"Small", Price: 10, img: "a.jpg"};
-var product2 = {Name:"Bombs", amount: 0 , color:"Blue", Size:"Small", Price: 20, img: "Bomb.png"};
-var product3 = {Name:"Deku Shield", amount: 0 , color:"Brown", Size:"Medium", Price: 40, img: "Deku_Shield.png"};
-var product4 = {Name:"Arrows", amount: 0 , color:"Metal", Size:"Small", Price: 10, img: "Arrows.jpg"};
-var product5 = {Name:"Big Goron Sword", amount: 0 , color:"Metal", Size:"Big", Price: 999, img: "B_BiggoronsSword.gif"};
-var product6 = {Name:"Hyrule Shield", amount: 0 , color:"Blue", Size:"Small", Price: 80, img: "HuryleShield.jpg"};
-var product7 = {Name:"Magic Potion", amount: 0 , color:"Green", Size:"Small", Price: 30, img: "Green_Potion_(Majora's_Mask).png"};
-var product8 = {Name:"Healing Potion", amount: 0 , color:"Red", Size:"Small", Price: 40, img: "Heal.jpg"};
-var product9 = {Name:"Hero Bow", amount: 0 , color:"Blue", Size:"Medium", Price: 500, img: "HeroBow.png"};
-var product10 = {Name:"Hook Shoot", amount: 0 , color:"Blue", Size:"Medium", Price: 800, img: "Scrubshoot.jpg"};
+var product1 = {Name:"Deku Seeds", amount: 0 , color:"Blue", Size: "small", shipment:10, Price: 10, img: "DekuSeed.jpg"};
+var product2 = {Name:"Bombs", amount: 0 , color:"Blue", Size: "small", shipment:10, Price: 20, img: "Bomb.png"};
+var product3 = {Name:"Deku Shield", amount: 0 , color:"Brown", Size: "medium",shipment:50, Price: 40, img: "Deku_Shield.png"};
+var product4 = {Name:"Arrows", amount: 0 , color:"Metal", Size: "small",shipment:10, Price: 10, img: "Arrows.jpg"};
+var product5 = {Name:"Big Goron Sword", amount: 0 , color:"Metal", Size: "large",shipment:500, Price: 999, img: "B_BiggoronsSword.gif"};
+var product6 = {Name:"Hyrule Shield", amount: 0 , color:"Blue", Size: "medium",shipment:50, Price: 80, img: "HuryleShield.jpg"};
+var product7 = {Name:"Magic Potion", amount: 0 , color:"Green", Size: "small",shipment:10, Price: 30, img: "Green_Potion_(Majora's_Mask).png"};
+var product8 = {Name:"Healing Potion", amount: 0 , color:"Red", Size: "small",shipment:10, Price: 40, img: "Healing_Potion.jpg"};
+var product9 = {Name:"Hero Bow", amount: 0 , color:"Blue", Size: "medium",shipment:50, Price: 500, img: "HeroBow.png"};
+var product10 = {Name:"Hook Shoot", amount: 0 , color:"Blue",Size: "medium", shipment:50, Price: 800, img: "Scrubshoot.jpg"};
 var products = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10];
 var SoldProducts = [];
 var cart;
@@ -55,13 +55,24 @@ function Buy(productname)
        }
     });
     SoldProduct.color = prompt("Which Color do you want:");
-    SoldProduct.amount = prompt("How many you want");
-
+    if(SoldProduct.color.length > 16)
+    {
+        SoldProduct.color = prompt("Invalid Color. Which Color do you want:");
+    }
+    SoldProduct.amount = prompt("How many "+SoldProduct.Name +" do you want?");
+    while(isNaN(SoldProduct.amount)==true) // isNaN returns false if value is number
+    {
+        SoldProduct.amount = prompt("Invalid amount. How many "+SoldProduct.Name +" do you want?");
+    }
+    while(SoldProduct.amount < 1)
+    {
+        SoldProduct.amount = prompt("You can't buy less than one item.");
+    }
     var StoredProducts = localStorage.getObj("SoldItems");
  if("SoldItems" in localStorage){
-    console.log( StoredProducts);
+   // console.log( StoredProducts);
     StoredProducts.push(SoldProduct);
-    console.log( StoredProducts);
+   // console.log( StoredProducts);
     localStorage.setObj("SoldItems", StoredProducts);
 } else {
    var StoredProducts = [];
@@ -72,6 +83,7 @@ function Buy(productname)
  //SoldProduct = element;
 
   localStorage.Size =  SoldProduct.Size; 
+  console.log("Item added to cart!")
 }  
 
 
@@ -92,9 +104,17 @@ function Checkout(id)
         window.location.href = 'sida3.html';
         break;
         case 4:
-        alert("Thank You for your purchase!")
+            var names = localStorage.getObj("SoldItems");
+          if(names==null)
+          {
+            alert("You need to have atleast 1 product in your shoping cart to proceed");
+          }
+          else
+          {
+       alert("Thank You for your purchase!")
         localStorage.clear();
         window.location.href = 'sida1.html';
+        }
         break;
     }
 }
@@ -109,21 +129,30 @@ function GetItemsFromLocalStorage()
 
 function WriteProducts(storedNames)
 {
-    var Text="";
+    // Name:"Hook Shoot", amount: 0 , color:"Blue",Size: "medium", shipment:50, Price: 800, img: "Scrubshoot.jpg"}
+    if(storedNames!=null)
+    {
+    var Text="<div class=\"row\">";
     var id = 1;
     storedNames.forEach(element => {
-        Text = Text + "Product: "+ element.Name +"\tAmount: " + element.amount + "\tColor: " + element.color +
-                      "\tSize: "+ element.Size +"\tPrice: " +element.amount * element.Price +
-                      "$ <button onclick=\"Changeamount('-', '"+element.Name+"','"+element.color+"')\">-</button><button onclick=\"Changeamount('+', '"+element.Name+"','"+element.color+"')\">+</button>"+
-                      "<button onclick=\"DeleteItem('"+element.Name+"')\">Delete Item</button> <br>";
+        Text = Text + "<div class=\"col-xxl-1\">"+
+        "<img src=\"images/products/"+element.img +"\" alt=\"product img\">"  +
+        "<br>"+ element.Name +
+                    "<br>Amount: " + element.amount + "<br>Color: " + element.color +
+                      "<br>Size: "+ element.Size +"<br>Price: " +element.amount * element.Price +
+                      "$ <br><button onclick=\"Changeamount('-', '"+element.Name+"','"+element.color+"')\">-</button><button onclick=\"Changeamount('+', '"+element.Name+"','"+element.color+"')\">+</button>"+
+                      "<button onclick=\"DeleteItem('"+element.Name+"')\">Delete Item</button> <br></div>";
     });
     
     document.getElementById("Products").innerHTML=Text;
+    }
 }
 
 function WriteProductsNoButton()
 {
     var storedNames = localStorage.getObj("SoldItems")
+    if(storedNames)
+    {
     var Text="";
     storedNames.forEach(element => {
     Text = Text + "Product: "+ element.Name +"\tAmount: " + element.amount + "\tColor: " + element.color +
@@ -131,6 +160,7 @@ function WriteProductsNoButton()
 });
     
     document.getElementById("Products").innerHTML= Text;
+}
 }
 
 function DeleteItem(ProductName)
@@ -144,6 +174,7 @@ function DeleteItem(ProductName)
         });
         
         localStorage.setObj("SoldItems", Products);
+        
         UpdateCart(Products);
       
       //  Products = localStorage.getObj("SoldItems");
@@ -154,7 +185,7 @@ function UpdateCart(Products)
 {
     WriteProducts(Products)
     GetMoms();
-    GetShipment(localStorage.Size);
+    GetShipment();
     GetTotal();
 }
 
@@ -170,6 +201,10 @@ function Changeamount(operator, Name, color)
             if(operator == '-')
             {
             element.amount = Number(element.amount) - Number(1);
+             if(element.amount < 1)
+                {
+                    element.amount = 1;
+                }
             console.log(element.amount);
             }else if (operator == '+')
             {
@@ -185,47 +220,48 @@ function Changeamount(operator, Name, color)
     UpdateCart(SoldProducts);
 }
 
+var moms;
 function GetMoms()
 {
     var Products = localStorage.getObj("SoldItems");
+    if(Products!=null)
+    {
     var totalPrice = 0;
     Products.forEach(element => {
        totalPrice = totalPrice + ( Number(element.Price) * Number(element.amount));
     });
-    var moms = Number(totalPrice) * Number(1.25);
+    moms = Number(totalPrice) * Number(1.25);
     console.log("Moms:" + moms);
     document.getElementById("moms").innerHTML="Moms:" + moms +"\$";
+    }
 }
 
 var shipment;
-function GetShipment(size)
+function GetShipment()
 { 
-switch(size)
- {
-    case"Small":
-    shipment = 100; 
-    break;
-    case"Medium":
-    shipment = 200;
-    break;
-    case"Big":
-    shipment = 300;
-    break;
-    case "default":
-    shipment =  50;
-    break;
-}
-console.log("Shipment: "+shipment);
-document.getElementById("shipment").innerHTML="Shipment Cost:" + shipment +"\$";
+var Products = localStorage.getObj("SoldItems");
+    if(Products!=null)
+    {
+    var totalShipment = 0;
+    Products.forEach(element => {
+       totalShipment = totalShipment + (  Number(element.shipment) * Number(element.amount));
+    });
+    console.log("Total Shipment fee:" + totalShipment);
+    document.getElementById("shipment").innerHTML="Total Shipment Cost:" + totalShipment +"\$";
+    shipment = totalShipment;
+    }
 }
 
 function GetTotal()
 {
      var Products = localStorage.getObj("SoldItems");
     var totalPrice = 0;
+    if(Products!=null)
+    {
     Products.forEach(element => {
        totalPrice = totalPrice + ( Number(element.Price) * Number(element.amount));
     });
-    totalPrice = totalPrice + shipment;
+    totalPrice = totalPrice + shipment + moms;
     document.getElementById("total").innerHTML="Total:" + totalPrice +"\$";
+    }
 }
