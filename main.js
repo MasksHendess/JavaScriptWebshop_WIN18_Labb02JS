@@ -10,7 +10,7 @@ var product9 = {id: 0,Name:"Hero Bow", amount: 0 , color:"Blue", Size: "medium",
 var product10 = {id: 0,Name:"Hook Shoot", amount: 0 , color:"Blue",Size: "medium", shipment:50, Price: 800, img: "Scrubshoot.jpg"};
 var products = [product1, product2, product3, product4, product5, product6, product7, product8, product9, product10];
 var SoldProducts = [];
-var cart;
+//var cart;
 function ObjectThing()
 {
 Storage.prototype.setObj = function(key, obj) {
@@ -162,7 +162,7 @@ function WriteProducts(storedNames)
     var Text="<div class=\"row\">";
     var id = 1;
     storedNames.forEach(element => {
-        Text = Text + "<div class=\"col-xxl-1\">"+
+        Text = Text + "<div class=\"col-xxl-1\" style=\"width: 100%, height: 100%\">"+
         "<img src=\"images/products/"+element.img +"\" alt=\"product img\">"  +
         "<br>"+ element.Name +
         "<br>item id: " + element.id +
