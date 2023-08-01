@@ -11,10 +11,12 @@
 </head>
 <body onload=" ObjectThing(), WriteProductsNoButton(),GetMoms(localStorage.Price*localStorage.amount),GetShipment(localStorage.Size), GetTotal()">
         <h1>Confirm Purchase</h1>
+    <div id="bgWhite">
         <p id ="Products"> </p>
         <p id ="moms"></p>
         <p id ="shipment" onload=""></p>
         <p id="total"></p> 
+    </div>
         <button onclick ="Checkout(2)">Back to Shoping Cart</button>
         <button onclick ="Checkout(4)">Confirm Purchase</button>
         <button onclick ="PlayMusic()">Play Music</button>

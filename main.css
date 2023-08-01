@@ -1,9 +1,24 @@
 body{
     text-align: center;
+    width: 95%;
+    background-image: url(images/background-image-slide-2-_second-image.jpg);
 }
-
+h1
+{
+    justify-content: center;
+    background-color: white;
+}
+#bgWhite
+{
+    background-color: white;
+    width: 50%;
+    justify-content: center;
+    margin : auto;
+    
+}
 footer
 {
+    background-color:white;
     margin: 5%;
 }
 li{
@@ -15,13 +30,17 @@ button{
 }
 
 img{
-    height: 50%;
-    width: 50%;
-    margin-top: 1%;
+    height: 35%;
+    width: 35%;
+    margin-top: 10%;
+}
+#Products p
+{
+    margin-top: 8%;
 }
 .row
 {
-    margin-left: 8%;
+    justify-content: center;
 }
 .col-xxl-2
 {
@@ -34,12 +53,14 @@ margin: 10px;
 
 .col-xxl-1
 {
-    height: 400px;
-    width: 310px;
+    height: 375px;
+    width: 320px;
+    background-color: white;
 border: 1px solid black;
 box-shadow: 5px 5px 5px 5px black;
 margin: 10px;
 }
+
 #products
 {
     display: grid; 

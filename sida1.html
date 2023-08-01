@@ -7,82 +7,21 @@
     <title>Hyrule Black Market</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" media="screen" href="main.css" />
-    <script src="main.js"></script>
+    <script  src="main.js"></script>
 </head>
 
-<body onload="ObjectThing()"><!-- , LoadProducts() -->
+<body onload="ObjectThing(), writeProductsFirstPage()"><!-- , LoadProducts() -->
+    <div id="bgWhite">
         <h1>Hyrule Black Market</h1>
-        <p>Welcome!</p>
-        <p>Take a look at our fine wares</p>
-
-        <div class="row">
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Deku Seeds</h2>
-                <img src="images/products/DekuSeed.JPG" alt="Deku Seeds">
-                <p>10 Rupees per item</p>
-                <button onclick="Buy('Deku Seeds')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Bombs</h2>
-                <img src="images/products/Bomb.png" alt="Bomb">
-                <p>20 Rupees per item</p>
-                <button onclick="Buy('Bombs')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Deku Shield</h2>
-                <img src="images/products/Deku_Shield.png" alt="Deku Shield">
-                <p>40 Rupees per item</p>
-                <button onclick="Buy('Deku Shield')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Arrows</h2>
-                <img src="images/products/Arrows.jpg" alt="Arrows">
-                <p>10 Rupees per item</p>
-                <button onclick="Buy('Arrows')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Big Goron Sword</h2>
-                <img src="images/products/B_BiggoronsSword.gif" alt="B_BiggoronsSword">
-                <p>999 Rupees per item</p>
-                <button onclick="Buy('Big Goron Sword')">Add to cart</button>
-            </div>
-            
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Hylian Shield</h2>
-                <img src="images/products/HuryleShield.jpg" alt="Hylian Shield">
-                <p>80 Rupees per item</p>
-                <button onclick="Buy('Hyrule Shield')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Magic Potion</h2>
-                <img src="images/products/Green_Potion_(Majora's_Mask).png" alt="Magic Potion">
-                <p>30 Rupees per item</p>
-                <button onclick="Buy('Magic Potion')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Healing Potion</h2>
-                <img src="images/products/Healing_Potion.jpg" alt="Healing Potion">
-                <p>40 Rupees per item</p>
-                <button onclick="Buy('Healing Potion')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Hero Bow</h2>
-                <img src="images/products/HeroBow.png" alt="Bow">
-                <p>500 Rupees per item</p>
-                <button onclick="Buy('Hero Bow')">Add to cart</button>
-            </div>
-            <div class="col-xxl-2 col-xl-4">
-                <h2>Hookshoot</h2>
-                <img src="images/products/Scrubshoot.jpg" alt="Hookshoot">
-                <p>800 Rupees per item</p>
-                <button onclick="Buy('Hook Shoot')">Add to cart</button>
-            </div>
+        <p  >Welcome!</p>
+        <p >Take a look at our fine wares</p>
+    </div>
+        <div id="Products" > 
         </div>
-      <!--<div id="products">
-        </div> -->
         <div>
             <button onclick ="Checkout(2)">View Shoping Cart</button>
             <button onclick ="PlayMusic()">Play Music</button>
         </div>
+        <footer> Ganondorf INC</footer>
 </body>
 </html>
